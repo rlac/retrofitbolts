@@ -1,6 +1,5 @@
 package com.github.rlac.retrofitbolts;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -102,7 +101,7 @@ public class BoltsCallAdapterFactory extends CallAdapter.Factory {
                                 try {
                                     //noinspection ConstantConditions
                                     errorBody = errorConverter.convert(response.errorBody());
-                                } catch (IOException ignore) {
+                                } catch (Exception ignore) {
                                     errorBody = null;
                                 }
                             }
