@@ -6,8 +6,6 @@ A Retrofit 2 [CallAdapter.Factory](https://github.com/square/retrofit/wiki/Call-
 How to use
 ----------
 
-(note: not yet available on a repository)
-
 Add the BoltsCallAdapterFactory when constructing your Retrofit instance:
 
 ```java
@@ -35,6 +33,28 @@ Task<String> getTask = service.getFizzBuzz().background();
 ```
 
 Unsuccessful responses throw a HttpException. HttpException includes the error code, deserialized error body if available, and the error body type.
+
+Project setup
+-------------
+
+Ensure the [jitpack](https://jitpack.io/) repository has been added to your build file:
+
+```groovy
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Add retrofitbolts as a dependency:
+
+```groovy
+dependencies {
+    implementation 'com.github.rlac:retrofitbolts:1.0'
+}
+```
+
 
 License
 -------
