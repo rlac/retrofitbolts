@@ -51,7 +51,7 @@ Add retrofitbolts as a dependency:
 
 ```groovy
 dependencies {
-    implementation 'com.github.rlac:retrofitbolts:1.0'
+    implementation 'com.github.rlac:retrofitbolts:1.1'
 }
 ```
 

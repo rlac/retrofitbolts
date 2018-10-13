@@ -119,7 +119,7 @@ public class BoltsCallAdapterFactoryTest {
     }
 
     @Test
-    public void testCancellation() throws InterruptedException {
+    public void testCancellation() {
         server.enqueue(new MockResponse().setResponseCode(200).setBody("cancel"));
         final AtomicReference<Runnable> delayedRunnable = new AtomicReference<>();
         BoltsCall<String> cancelCall = service.test();

@@ -2,7 +2,8 @@ package com.github.rlac.retrofitbolts;
 
 import java.util.concurrent.Executor;
 
-import androidx.annotation.NonNull;
+import javax.annotation.Nonnull;
+
 import bolts.Task;
 
 /**
@@ -23,7 +24,7 @@ public interface BoltsCall<T> {
      *
      * @return a Task containing the result of the call.
      */
-    @NonNull
+    @Nonnull
     Task<T> immediate();
 
     /**
@@ -31,7 +32,7 @@ public interface BoltsCall<T> {
      *
      * @return a Task that will contain the result of the call.
      */
-    @NonNull
+    @Nonnull
     Task<T> background();
 
     /**
@@ -40,6 +41,6 @@ public interface BoltsCall<T> {
      * @param executor the Executor that will execute the call.
      * @return a Task that will contain the result of the call.
      */
-    @NonNull
-    Task<T> execute(@NonNull Executor executor);
+    @Nonnull
+    Task<T> execute(@Nonnull Executor executor);
 }

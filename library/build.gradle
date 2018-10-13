@@ -1,31 +1,16 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-group = "com.github.rlac"
-
-android {
-    compileSdkVersion 27
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+plugins {
+    id 'java-library'
+    id 'maven'
 }
+
+group = "com.github.rlac"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
 
 dependencies {
     api "com.parse.bolts:bolts-tasks:1.4.0"
     api "com.squareup.retrofit2:retrofit:2.4.0"
-    implementation 'androidx.annotation:annotation:1.0.0-beta01'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.10.0'
     testImplementation 'com.google.truth:truth:0.41'

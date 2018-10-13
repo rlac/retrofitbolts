@@ -6,8 +6,9 @@ import java.lang.reflect.Type;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.Executor;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import bolts.Task;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -22,7 +23,7 @@ import retrofit2.Retrofit;
 public class BoltsCallAdapterFactory extends CallAdapter.Factory {
     private static final Executor IMMEDIATE = Runnable::run;
 
-    @NonNull
+    @Nonnull
     public static BoltsCallAdapterFactory create() {
         return new BoltsCallAdapterFactory(Task.BACKGROUND_EXECUTOR, IMMEDIATE);
     }
@@ -30,14 +31,14 @@ public class BoltsCallAdapterFactory extends CallAdapter.Factory {
     protected final Executor backgroundExecutor;
     protected final Executor immediateExecutor;
 
-    private BoltsCallAdapterFactory(@NonNull Executor backgroundExecutor, @NonNull Executor immediateExecutor) {
+    private BoltsCallAdapterFactory(@Nonnull Executor backgroundExecutor, @Nonnull Executor immediateExecutor) {
         this.backgroundExecutor = backgroundExecutor;
         this.immediateExecutor = immediateExecutor;
     }
 
     @Nullable
     @Override
-    public CallAdapter<?, ?> get(@NonNull Type returnType, @NonNull Annotation[] annotations, @NonNull Retrofit retrofit) {
+    public CallAdapter<?, ?> get(@Nonnull Type returnType, @Nonnull Annotation[] annotations, @Nonnull Retrofit retrofit) {
         if (!getRawType(returnType).isAssignableFrom(BoltsCall.class)) {
             return null;
         }
@@ -50,7 +51,7 @@ public class BoltsCallAdapterFactory extends CallAdapter.Factory {
         private final Type responseType;
         private final Converter<ResponseBody, T> errorConverter;
 
-        TaskCallAdapter(@NonNull Type responseType, @NonNull Converter<ResponseBody, T> errorConverter) {
+        TaskCallAdapter(@Nonnull Type responseType, @Nonnull Converter<ResponseBody, T> errorConverter) {
             this.responseType = responseType;
             this.errorConverter = errorConverter;
         }
@@ -61,33 +62,33 @@ public class BoltsCallAdapterFactory extends CallAdapter.Factory {
         }
 
         @Override
-        public BoltsCall<T> adapt(@NonNull final Call<T> call) {
+        public BoltsCall<T> adapt(@Nonnull final Call<T> call) {
             return new BoltsCall<T>() {
                 @Override
                 public void cancel() {
                     call.cancel();
                 }
 
-                @NonNull
+                @Nonnull
                 @Override
                 public Task<T> immediate() {
                     return createTask(immediateExecutor);
                 }
 
-                @NonNull
+                @Nonnull
                 @Override
                 public Task<T> background() {
                     return createTask(backgroundExecutor);
                 }
 
-                @NonNull
+                @Nonnull
                 @Override
-                public Task<T> execute(@NonNull Executor executor) {
+                public Task<T> execute(@Nonnull Executor executor) {
                     return createTask(executor);
                 }
 
-                @NonNull
-                private Task<T> createTask(@NonNull Executor executor) {
+                @Nonnull
+                private Task<T> createTask(@Nonnull Executor executor) {
                     return Task.call(() -> {
                         if (call.isCanceled()) {
                             throw new CancellationException();
@@ -102,7 +103,7 @@ public class BoltsCallAdapterFactory extends CallAdapter.Factory {
                                     //noinspection ConstantConditions
                                     errorBody = errorConverter.convert(response.errorBody());
                                 } catch (Exception ignore) {
-                                    errorBody = null;
+                                    // ignore
                                 }
                             }
                             throw new HttpException(response.code(), response.message(), errorBody, responseType);

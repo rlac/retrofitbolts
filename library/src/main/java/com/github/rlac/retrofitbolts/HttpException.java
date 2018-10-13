@@ -2,8 +2,8 @@ package com.github.rlac.retrofitbolts;
 
 import java.lang.reflect.Type;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents an unsuccessful response.
@@ -13,7 +13,7 @@ public class HttpException extends Exception {
     private final Object errorBody;
     private final Type errorType;
 
-    HttpException(int code, @Nullable String message, @Nullable Object errorBody, @NonNull Type errorType) {
+    HttpException(int code, @Nullable String message, @Nullable Object errorBody, @Nonnull Type errorType) {
         super(message);
         this.code = code;
         this.errorBody = errorBody;
@@ -38,7 +38,7 @@ public class HttpException extends Exception {
     /**
      * @return the type of the error body.
      */
-    @NonNull
+    @Nonnull
     public Type getErrorType() {
         return errorType;
     }
